@@ -1,19 +1,16 @@
 import React from 'react';
 import { Provider } from 'react-redux';
+import { Redirect } from 'react-router';
 import { Router, Route } from 'react-router-dom';
 import { store } from '../store';
 import { history } from '../store/history';
-import { ConnectedDashboard } from './Dashboard';
-import { ConnectedLogin } from './Login';
-import { ConnectedNavigation } from './Navigation';
-import { ConnectedTaskDetail } from './TaskDetail';
-import { Redirect } from 'react-router';
+import { ConnectedPlayerRegistration } from './playerRegistration';
 
 
-const RouteGuard = Component => ({ match }) => {
+const RouteGuard = Component => ({ component }) => {
 	console.info("Route Guard Triggered for", match)
 	if (store.getState().users[0].isConnected && store.getState().users[1].isConnected) {
-		return <Component match={match} />
+		return <Component match={component} />
 	} else {
 		return <Redirect to='/' />
 	}
@@ -24,9 +21,8 @@ export const Main = () => (
 		<Provider store={store}>
 			<div>
 				<ConnectedNavigation />
-				<Route exact path="/" component={ConnectedLogin} />
-				<Route exact path="/dashboard" render={RouteGuard(ConnectedDashboard)} />
-				<Route exact path="/task/:id" render={RouteGuard(ConnectedTaskDetail)} />
+				<Route exact path="/" component={ConnectedPlayerRegistration} />
+				<Route exact path="/game" render={RouteGuard()} />
 			</div>
 		</Provider>
 	</Router>
