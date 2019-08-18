@@ -20,7 +20,6 @@ export const Main = () => (
 	<Router history={history}>
 		<Provider store={store}>
 			<div>
-				<ConnectedNavigation />
 				<Route exact path="/" component={ConnectedPlayerRegistration} />
 				<Route exact path="/game" render={RouteGuard()} />
 			</div>

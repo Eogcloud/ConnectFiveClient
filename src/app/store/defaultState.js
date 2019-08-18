@@ -13,6 +13,6 @@ export const defaultState = {
 	}],
 
 	board: {
-		tiles: new Array[6 * 9]
+		tiles: Array(9 * 6).fill('EMPTY')
 	},
 }

@@ -1,5 +1,5 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-import { defaultState } from '../../server/defaultState'
+import { defaultState } from './defaultState'
 import { createLogger } from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
 import * as sagas from './sagas'
@@ -23,13 +23,14 @@ export const store = createStore(
 					return players.map(player => {
 						return (player.id === action.id) ? { ...player, name: action.name } : player;
 					})
-				case mutations.SET_PLAYER_MOVE: return players;
 			}
+
+			return players;
 		},
 
-		activeGame(activeGame = defaultState.activeGame, action) { return false; },
+		activeGame(activeGame = defaultState.activeGame, action) { return activeGame; },
 
-		board(board = defaultState.board) { return false; }
+		board(board = defaultState.board) { return board; }
 	}),
 	applyMiddleware(createLogger(), sagaMiddleware)
 )
